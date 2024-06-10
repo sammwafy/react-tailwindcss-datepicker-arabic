@@ -6,6 +6,7 @@ import { BG_COLOR, TEXT_COLOR } from "../../constants";
 import DatepickerContext from "../../contexts/DatepickerContext";
 import { formatDate, nextMonth, previousMonth, classNames as cn } from "../../helpers";
 import { Period } from "../../types";
+import { toArDigit } from "helpers/toArDigit";
 
 dayjs.extend(isBetween);
 
@@ -21,13 +22,15 @@ interface Props {
     onClickPreviousDays: (day: number) => void;
     onClickDay: (day: number) => void;
     onClickNextDays: (day: number) => void;
+    i18n?: string;
 }
 
 const Days: React.FC<Props> = ({
     calendarData,
     onClickPreviousDays,
     onClickDay,
-    onClickNextDays
+    onClickNextDays,
+    i18n
 }) => {
     // Contexts
     const {
@@ -47,8 +50,11 @@ const Days: React.FC<Props> = ({
             const itemDate = `${calendarData.date.year()}-${calendarData.date.month() + 1}-${
                 item >= 10 ? item : "0" + item
             }`;
-            if (formatDate(dayjs()) === formatDate(dayjs(itemDate)))
-                return TEXT_COLOR["500"][primaryColor as keyof (typeof TEXT_COLOR)["500"]];
+            if (formatDate(dayjs()) === formatDate(dayjs(itemDate))) {
+                return `${
+                    TEXT_COLOR["500"][primaryColor as keyof (typeof TEXT_COLOR)["500"]]
+                } bg-primary-500 text-white font-medium rounded-full`;
+            }
             return "";
         },
         [calendarData.date, primaryColor]
@@ -65,13 +71,13 @@ const Days: React.FC<Props> = ({
                 className = ` ${BG_COLOR["500"][primaryColor]} text-white font-medium ${
                     dayjs(fullDay).isSame(dayHover) && !period.end
                         ? "rounded-full"
-                        : "rounded-l-full"
+                        : `${i18n === "ar" ? "rounded-r-full" : "rounded-l-full"}`
                 }`;
             } else if (dayjs(fullDay).isSame(period.end)) {
                 className = ` ${BG_COLOR["500"][primaryColor]} text-white font-medium ${
                     dayjs(fullDay).isSame(dayHover) && !period.start
                         ? "rounded-full"
-                        : "rounded-r-full"
+                        : `${i18n === "ar" ? "rounded-l-full" : "rounded-r-full"}`
                 }`;
             }
 
@@ -117,7 +123,13 @@ const Days: React.FC<Props> = ({
             if (dayHover === fullDay) {
                 const bgColor = BG_COLOR["500"][primaryColor];
                 className = ` transition-all duration-500 text-white font-medium ${bgColor} ${
-                    period.start ? "rounded-r-full" : "rounded-l-full"
+                    period.start
+                        ? i18n === "ar"
+                            ? "rounded-l-full"
+                            : "rounded-r-full"
+                        : i18n === "ar"
+                        ? "rounded-r-full"
+                        : "rounded-l-full"
                 }`;
             }
 
@@ -356,7 +368,7 @@ const Days: React.FC<Props> = ({
                         hoverDay(item, "previous");
                     }}
                 >
-                    {item}
+                    {i18n === "ar" ? toArDigit(item.toString()) : item}
                 </button>
             ))}
 
@@ -371,7 +383,7 @@ const Days: React.FC<Props> = ({
                         hoverDay(item, "current");
                     }}
                 >
-                    {item}
+                    {i18n === "ar" ? toArDigit(item.toString()) : item}
                 </button>
             ))}
 
@@ -386,7 +398,7 @@ const Days: React.FC<Props> = ({
                         hoverDay(item, "next");
                     }}
                 >
-                    {item}
+                    {i18n === "ar" ? toArDigit(item.toString()) : item}
                 </button>
             ))}
         </div>

@@ -10,20 +10,20 @@
     "scripts": {
         "watch": "rollup -c -w",
         "clean": "rm -rf dist",
+
         "lint": "eslint --ignore-path .gitignore .",
         "lint:fix": "eslint --ignore-path .gitignore --fix .",
         "pret": "prettier -c .",
         "pret:fix": "prettier --ignore-path .gitignore --config ./.prettierrc --write './**/*.{js,jsx,ts,tsx,css,md,json}'",
         "code-style": "npm run pret && npm run lint",
         "code-style:fix": "npm run pret:fix && npm run pret:fix",
-        "build": "npm run code-style && npm run clean && rollup -c",
+        "build": "rollup -c",
         "pub": "npm run build && npm publish",
         "dev": "next dev -p 8888",
-        "prepare": "husky install"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/onesine/react-tailwindcss-datepicker"
+        "url": "https://github.com/sammwafy/react-tailwindcss-datepicker-arabic"
     },
     "keywords": [
         "react-tailwindcss-datepicker",

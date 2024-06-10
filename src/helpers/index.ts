@@ -47,6 +47,8 @@ export function getTextColorByPrimaryColor(color: string) {
             return "text-pink-500";
         case "rose":
             return "text-rose-500";
+        case "primary":
+            return "text-primary-500";
         default:
             return "";
     }
@@ -69,8 +71,8 @@ export function ucFirst(value: string) {
     return `${value[0].toUpperCase()}${value.slice(1, value.length)}`;
 }
 
-export function formatDate(date: dayjs.Dayjs, format = DATE_FORMAT) {
-    return date.format(format);
+export function formatDate(date: dayjs.Dayjs, format = DATE_FORMAT, i18n?: string) {
+    return i18n === "ar" ? date.locale(i18n).format(format) : date.format(format);
 }
 
 export function parseFormattedDate(date: string, format = DATE_FORMAT) {

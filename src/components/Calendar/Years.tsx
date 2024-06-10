@@ -4,16 +4,18 @@ import { generateArrayNumber } from "../../helpers";
 import { RoundedButton } from "../utils";
 
 import DatepickerContext from "contexts/DatepickerContext";
+import { toArDigit } from "helpers/toArDigit";
 
 interface Props {
     year: number;
     currentYear: number;
     minYear: number | null;
     maxYear: number | null;
+    i18n?: string;
     clickYear: (data: number) => void;
 }
 
-const Years: React.FC<Props> = ({ year, currentYear, minYear, maxYear, clickYear }) => {
+const Years: React.FC<Props> = ({ year, currentYear, minYear, maxYear, i18n, clickYear }) => {
     const { dateLooking } = useContext(DatepickerContext);
 
     let startDate = 0;
@@ -49,7 +51,7 @@ const Years: React.FC<Props> = ({ year, currentYear, minYear, maxYear, clickYear
                         (maxYear !== null && item > maxYear) || (minYear !== null && item < minYear)
                     }
                 >
-                    <>{item}</>
+                    <>{i18n === "ar" ? toArDigit(item.toString()) : item}</>
                 </RoundedButton>
             ))}
         </div>

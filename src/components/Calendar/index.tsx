@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import 'dayjs/locale/ar'
-import 'dayjs/locale/en-gb'
+import "dayjs/locale/ar";
+import "dayjs/locale/en-gb";
 import { CALENDAR_SIZE, DATE_FORMAT } from "../../constants";
 import DatepickerContext from "../../contexts/DatepickerContext";
 import {
@@ -29,6 +29,7 @@ import Week from "./Week";
 import Years from "./Years";
 
 import { DateType } from "types";
+import { toArDigit } from "helpers/toArDigit";
 
 interface Props {
     date: dayjs.Dayjs;
@@ -248,7 +249,11 @@ const Calendar: React.FC<Props> = ({
                 {!showMonths && !showYears && (
                     <div className="flex-none">
                         <RoundedButton roundedFull={true} onClick={onClickPrevious}>
-                            <ChevronLeftIcon className="h-5 w-5" />
+                            {i18n === "ar" ? (
+                                <DoubleChevronRightIcon className="h-5 w-5" />
+                            ) : (
+                                <ChevronLeftIcon className="h-5 w-5" />
+                            )}
                         </RoundedButton>
                     </div>
                 )}
@@ -261,7 +266,11 @@ const Calendar: React.FC<Props> = ({
                                 setYear(year - 12);
                             }}
                         >
-                            <DoubleChevronLeftIcon className="h-5 w-5" />
+                            {i18n === "ar" ? (
+                                <DoubleChevronRightIcon className="h-5 w-5" />
+                            ) : (
+                                <DoubleChevronLeftIcon className="h-5 w-5" />
+                            )}
                         </RoundedButton>
                     </div>
                 )}
@@ -285,7 +294,11 @@ const Calendar: React.FC<Props> = ({
                                 hideMonths();
                             }}
                         >
-                            <>{calendarData.date.year()}</>
+                            <>
+                                {i18n === "ar"
+                                    ? toArDigit(calendarData.date.year().toString())
+                                    : calendarData.date.year()}
+                            </>
                         </RoundedButton>
                     </div>
                 </div>
@@ -298,7 +311,11 @@ const Calendar: React.FC<Props> = ({
                                 setYear(year + 12);
                             }}
                         >
-                            <DoubleChevronRightIcon className="h-5 w-5" />
+                            {i18n === "ar" ? (
+                                <ChevronLeftIcon className="h-5 w-5" />
+                            ) : (
+                                <DoubleChevronRightIcon className="h-5 w-5" />
+                            )}
                         </RoundedButton>
                     </div>
                 )}
@@ -306,7 +323,11 @@ const Calendar: React.FC<Props> = ({
                 {!showMonths && !showYears && (
                     <div className="flex-none">
                         <RoundedButton roundedFull={true} onClick={onClickNext}>
-                            <ChevronRightIcon className="h-5 w-5" />
+                            {i18n === "ar" ? (
+                                <DoubleChevronLeftIcon className="h-5 w-5" />
+                            ) : (
+                                <DoubleChevronRightIcon className="h-5 w-5" />
+                            )}
                         </RoundedButton>
                     </div>
                 )}
@@ -323,6 +344,7 @@ const Calendar: React.FC<Props> = ({
                         minYear={minYear}
                         maxYear={maxYear}
                         currentYear={calendarData.date.year()}
+                        i18n={i18n}
                         clickYear={clickYear}
                     />
                 )}
@@ -336,6 +358,7 @@ const Calendar: React.FC<Props> = ({
                             onClickPreviousDays={clickPreviousDays}
                             onClickDay={clickDay}
                             onClickNextDays={clickNextDays}
+                            i18n={i18n}
                         />
                     </>
                 )}

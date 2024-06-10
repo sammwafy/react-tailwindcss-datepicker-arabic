@@ -197,8 +197,8 @@ const Datepicker: React.FC<DatepickerType> = ({
                     end: formatDate(endDate)
                 });
                 setInputText(
-                    `${formatDate(startDate, displayFormat)}${
-                        asSingle ? "" : ` ${separator} ${formatDate(endDate, displayFormat)}`
+                    `${formatDate(startDate, displayFormat, i18n)}${
+                        asSingle ? "" : ` ${separator} ${formatDate(endDate, displayFormat, i18n)}`
                     }`
                 );
             }

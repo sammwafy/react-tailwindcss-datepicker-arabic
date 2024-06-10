@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
 
     return (
         <div className={getClassName()}>
-            <div className="w-full md:w-auto flex items-center justify-center space-x-3">
+            <div className="w-full md:w-auto flex items-center justify-center space-x-3 gap-1">
                 <SecondaryButton
                     onClick={() => {
                         hideDatepicker();
