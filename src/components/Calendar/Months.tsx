@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import React, { useContext } from "react";
-
+import 'dayjs/locale/ar'
+import 'dayjs/locale/en-gb'
 import { MONTHS } from "../../constants";
 import DatepickerContext from "../../contexts/DatepickerContext";
 import { loadLanguageModule } from "../../helpers";
