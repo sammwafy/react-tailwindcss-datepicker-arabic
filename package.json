@@ -19,7 +19,7 @@
         "code-style:fix": "npm run pret:fix && npm run pret:fix",
         "build": "rollup -c",
         "pub": "npm run build && npm publish",
-        "dev": "next dev -p 8888",
+        "dev": "next dev -p 8888"
     },
     "repository": {
         "type": "git",
